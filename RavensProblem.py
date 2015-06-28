@@ -102,7 +102,7 @@ class RavensProblem:
         if self.givenAnswer==self.correctAnswer:
             return "Correct"
         elif self.givenAnswer<0:
-            return "Skipped";
+            return "Skipped"
         else:
             return "Incorrect"
 

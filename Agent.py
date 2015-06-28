@@ -9,7 +9,12 @@
 # These methods will be necessary for the project's main method to run.
 
 # Install Pillow and uncomment this line to access image processing.
+
 #from PIL import Image
+from random import randint
+
+import Verbal
+import Visual
 
 class Agent:
     # The default constructor for your Agent. Make sure to execute any
@@ -43,5 +48,24 @@ class Agent:
     #
     # Make sure to return your answer *as an integer* at the end of Solve().
     # Returning your answer as a string may cause your program to crash.
-    def Solve(self,problem):
-        return -1
+
+    def Solve(self, problem):
+
+        verbal = Verbal.Agent(problem)
+        #visual = Visual.Agent(problem)
+
+        # Check to see the options for solving the problem
+        if not problem.hasVerbal:
+            # Can only solve the problem visually
+            answer = -1#visual.solve(problem)
+        else:
+            # Try and solve both visually and verbally and compare answers
+            verbal_answer = verbal.solve()
+            visual_answer = -1#visual.solve(problem)
+            if verbal_answer == visual_answer:
+                answer = verbal_answer
+            else:
+                # Figure out how to compare the two and decide on the best
+                answer = verbal_answer # <-- PLACEHOLDER
+
+        return answer
