@@ -19,7 +19,13 @@ class BaseAgent(object):
 
         self.problem = problem
 
-    def print_section_header(self, message):
+    def log(self, messages):
+        if __debug__:
+            for i in range(0, len(messages)):
+                messages[i] = str(messages[i])
+            print(" ".join(messages))
+
+    def log_section_header(self, message):
         print("\n***********************************************************************************\n")
         print(message)
         print("\n***********************************************************************************\n")

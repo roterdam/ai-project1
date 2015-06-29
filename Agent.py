@@ -51,21 +51,36 @@ class Agent:
 
     def Solve(self, problem):
 
+        if __debug__:
+            print("\n** DEBUG MODE **\n")
+
         verbal = Verbal.Agent(problem)
         #visual = Visual.Agent(problem)
 
         # Check to see the options for solving the problem
         if not problem.hasVerbal:
             # Can only solve the problem visually
-            answer = -1#visual.solve(problem)
+            answer = None # visual.solve(problem)
         else:
             # Try and solve both visually and verbally and compare answers
             verbal_answer = verbal.solve()
-            visual_answer = -1#visual.solve(problem)
+            visual_answer = None # visual.solve(problem)
             if verbal_answer == visual_answer:
                 answer = verbal_answer
             else:
                 # Figure out how to compare the two and decide on the best
                 answer = verbal_answer # <-- PLACEHOLDER
 
-        return answer
+
+        # The answer that comes back is a list with two values,
+        # the name of the problem and the value of the answer
+
+        # Check to see if we got the right answer
+        right_answer = problem.checkAnswer(answer["value"])
+
+        if answer["value"] == right_answer:
+            print("\nI got it right! Thanks for teaching me so good!")
+        else:
+            print("\nUgh...my answer is %d and the right answer is %d" % (answer["value"], right_answer))
+
+        return int(answer["value"])

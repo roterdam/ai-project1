@@ -20,9 +20,9 @@ def main():
             # Additional sets of problems will be used when grading projects.
             # You may also write your own problems.
 
-    r = open("Problems" + os.sep + "ProblemSetList.txt")    # ProblemSetList.txt lists the sets to solve.
+    r = open("Problems" + os.sep + "ProblemSetList_Some.txt")    # ProblemSetList_Some.txt lists the sets to solve.
     line = getNextLine(r)                                   # Sets will be solved in the order they appear in the file.
-    while not line=="":                                     # You may modify ProblemSetList.txt for design and debugging.
+    while not line=="":                                     # You may modify ProblemSetList_Some.txt for design and debugging.
         sets.append(ProblemSet(line))                       # We will use a fresh copy of all problem sets when grading.
         line=getNextLine(r)                                 # We will also use some problem sets not given in advance.
 
