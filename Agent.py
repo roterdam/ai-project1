@@ -75,12 +75,23 @@ class Agent:
         # The answer that comes back is a list with two values,
         # the name of the problem and the value of the answer
 
-        # Check to see if we got the right answer
-        right_answer = problem.checkAnswer(answer["value"])
+        my_answer = -1
 
-        if answer["value"] == right_answer:
+        # Check to see if we got the right answer
+        try:
+            my_answer = int(answer["value"])
+
+        except:
+            # Just in case we don't ever get to an answer, let's do the normal SAT out of time
+            # preferred methodology...GUESS!
+            my_answer = randint(1, verbal.possible_answers)
+            print("Caught an error while checking the answer")
+
+        right_answer = problem.checkAnswer(my_answer)
+
+        if my_answer == right_answer:
             print("\nI got it right! Thanks for teaching me so good!")
         else:
-            print("\nUgh...my answer is %d and the right answer is %d" % (answer["value"], right_answer))
+            print("\nUgh...my answer is %d and the right answer is %d" % (my_answer, right_answer))
 
-        return int(answer["value"])
+        return int(my_answer)

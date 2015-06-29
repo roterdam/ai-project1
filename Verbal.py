@@ -120,8 +120,11 @@ class Agent(BaseAgent):
                 # then remove those answers that don't fit the bill
                 if answer_objects > 0:
                     for this_answer in range(0, len(answers)):
-                        if len(answers[this_answer].attributes) != answer_objects:
-                            del answers[this_answer]
+                        try:
+                            if len(answers[this_answer].attributes) != answer_objects:
+                                del answers[this_answer]
+                        except:
+                            print("Caught an error")
 
                 # Find all the possible object descriptions
                 check_matches = []
@@ -135,8 +138,11 @@ class Agent(BaseAgent):
                 exact_matches = {}
                 for match in check_matches:
                     for i in range(0, len(a_objects)):
-                        if a_objects[i].get(match) == b_objects[i].get(match):
-                            exact_matches[match] = c_objects[i].get(match)
+                        try:
+                            if a_objects[i].get(match) == b_objects[i].get(match):
+                                exact_matches[match] = c_objects[i].get(match)
+                        except:
+                            print("Caught an error")
 
                 # Now look through all the answers and see if we can get a match
                 answer_matches = {}
@@ -162,7 +168,7 @@ class Agent(BaseAgent):
                 # If we only have one perfect match, we're done with this problem
                 if len(perfect_matches) == 1:
                     answer = perfect_matches[0]
-                    print("Looks like we found a perfect match in answer ", answer, "!")
+                    print("Looks like we found a perfect match in answer", answer, "!")
 
 
             elif is_3x3:
