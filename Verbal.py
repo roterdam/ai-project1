@@ -66,6 +66,8 @@ class Agent(BaseAgent):
 
     def run_comparisons(self, problem_name, answers, elements):
 
+        caught_error = False # If we catch an error, confidence should drop
+
         # Just in case we don't ever get to an answer, let's do the normal SAT out of time
         # preferred methodology...GUESS!
         answer = randint(1, self.possible_answers)
@@ -124,6 +126,7 @@ class Agent(BaseAgent):
                             if len(answers[this_answer].attributes) != answer_objects:
                                 del answers[this_answer]
                         except:
+                            caught_error = True
                             print("Caught an error")
 
                 # Find all the possible object descriptions
@@ -142,6 +145,7 @@ class Agent(BaseAgent):
                             if a_objects[i].get(match) == b_objects[i].get(match):
                                 exact_matches[match] = c_objects[i].get(match)
                         except:
+                            caught_error = True
                             print("Caught an error")
 
                 # Now look through all the answers and see if we can get a match
@@ -173,6 +177,8 @@ class Agent(BaseAgent):
 
             elif is_3x3:
                 self.log("I can't even get 2x2 working yet :-(")
+
+            if caught_error: answer = -1 # No confidence in errors
 
         return { "problem":problem_name, "value":answer }
 

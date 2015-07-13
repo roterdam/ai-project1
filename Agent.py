@@ -82,14 +82,15 @@ class Agent:
             my_answer = int(answer["value"])
 
         except:
-            # Just in case we don't ever get to an answer, let's do the normal SAT out of time
-            # preferred methodology...GUESS!
-            my_answer = randint(1, verbal.possible_answers)
+            # Skip answers that have errors
+            my_answer = -1
             print("Caught an error while checking the answer")
 
         right_answer = problem.checkAnswer(my_answer)
 
-        if my_answer == right_answer:
+        if my_answer == -1:
+            print("\nSkipped this one...")
+        elif my_answer == right_answer:
             print("\nI got it right! Thanks for teaching me so good!")
         else:
             print("\nUgh...my answer is %d and the right answer is %d" % (my_answer, right_answer))
