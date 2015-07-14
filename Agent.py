@@ -10,11 +10,11 @@
 
 # Install Pillow and uncomment this line to access image processing.
 
-#from PIL import Image
-from random import randint
+from PIL import Image
 
-import Verbal
+#import Verbal
 import Visual
+import sys
 
 class Agent:
     # The default constructor for your Agent. Make sure to execute any
@@ -54,37 +54,17 @@ class Agent:
         if __debug__:
             print("\n** DEBUG MODE **\n")
 
-        verbal = Verbal.Agent(problem)
-        #visual = Visual.Agent(problem)
+        my_answer = None
 
-        # Check to see the options for solving the problem
-        if not problem.hasVerbal:
-            # Can only solve the problem visually
-            answer = None # visual.solve(problem)
-        else:
-            # Try and solve both visually and verbally and compare answers
-            verbal_answer = verbal.solve()
-            visual_answer = None # visual.solve(problem)
-            if verbal_answer == visual_answer:
-                answer = verbal_answer
-            else:
-                # Figure out how to compare the two and decide on the best
-                answer = verbal_answer # <-- PLACEHOLDER
-
-
-        # The answer that comes back is a list with two values,
-        # the name of the problem and the value of the answer
-
-        my_answer = -1
-
-        # Check to see if we got the right answer
         try:
-            my_answer = int(answer["value"])
-
+            solution = Visual.Agent(problem).solve()
+            my_answer = int(solution["value"])
         except:
             # Skip answers that have errors
             my_answer = -1
-            print("Caught an error while checking the answer")
+            print("Caught an error while checking the answer: ", sys.exc_info()[0])
+            if __debug__:
+                raise
 
         right_answer = problem.checkAnswer(my_answer)
 

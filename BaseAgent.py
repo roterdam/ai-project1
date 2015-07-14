@@ -1,9 +1,9 @@
 class BaseAgent(object):
 
     possible_answers = 0
-    problem_figures = None
+    problem_figures = 0
     problem_name = ""
-    problem_elements = 0
+    problem = None
 
     def __init__(self, problem):
 
@@ -12,10 +12,10 @@ class BaseAgent(object):
         # All problems will need the number of answers to iterate
         if problem.problemType == "2x2":
             self.possible_answers = 6
-            self.problem_elements = 3
+            self.problem_figures = 3
         else:
             self.possible_answers = 8
-            self.problem_elements = 8
+            self.problem_figures = 8
 
         self.problem = problem
 
